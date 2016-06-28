@@ -1,6 +1,10 @@
 # Todo: Alter the complete_tasks method so that it only calls 'complete' on
 #           non-completed task.
 #       Add a remove_task method that removes only one task by id
+#
+#       Upon calling complete() on a task, set _value of that task object to the number of occurrences of the
+#           string "CCN" (case in-sensitive) that appears in the task's name.
+#
 #       Fix the Task object id, so that it is unique for each new task.
 #       Fix other bugs.
 
@@ -13,6 +17,7 @@ class Task(object):
     def __init__(self, name):
         self._id = 0
         self._name = name
+        self._value = None
         self._completed = False
 
     def complete(self):
@@ -30,7 +35,12 @@ class Task(object):
     def id(self):
         return self._id
 
+    @property
+    def value(self):
+        return self._value
 
+
+# This class cannot be edited directly
 class TaskManager(object):
 
     def __init__(self):
@@ -49,22 +59,3 @@ class TaskManager(object):
     def remove_tasks(self):
         while len(self.tasks) > 0:
             self.tasks.pop()
-
-
-if __name__ == "__main__":
-    task_manager = TaskManager()
-    first_task = Task('first')
-    second_task = Task('second')
-    third_task = Task('third')
-
-    task_manager.import_task(first_task)
-    task_manager.import_task(second_task)
-    task_manager.import_task(third_task)
-    task_manager.complete_tasks()
-
-    last_task = Task('last')
-    task_manager.import_task(last_task)
-    task_manager.complete_tasks()
-
-    task_manager.remove_tasks()
-
