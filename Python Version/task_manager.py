@@ -10,18 +10,31 @@
 
 # Note: - you cannot edit/change the TaskManager class
 #       - You can create new objects, etc
-
+import uuid
 
 class Task(object):
 
     def __init__(self, name):
-        self._id = 0
+        self._id = uuid.uuid4().hex
         self._name = name
-        self._value = None
+        self._value = 0
         self._completed = False
 
     def complete(self):
-        _completed = True
+        if self._completed:
+            return
+        else:
+            self._completed = True
+            len_counter = len(self._name)
+            lower_name = self._name.lower()
+            if len_counter < 3:
+                return
+            i = 3
+            while i < len_counter:
+                sub_string = lower_name[i-3:i]
+                if 'ccn' in sub_string:
+                    self._value += 1
+                i += 1
 
     @property
     def is_completed(self):
