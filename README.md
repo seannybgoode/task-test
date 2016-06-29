@@ -5,7 +5,8 @@ It is for us to better understand your current skill level.
 
 You can either do the Python version or the C++ version
 
-When doing this test, please create a new branch of master and commit/push your solution to your new branch. Name of your branch should be your last name.
+When doing this test, please fork our repository and then send us a link to branch in your forked repository with your solution. Name of the branch should be your last name.
 
-Good luck!!!
+Good luck!
 
+We are looking forward to see your solution.
