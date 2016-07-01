@@ -14,34 +14,68 @@
 #ifndef __Task__
 #define __Task__
 
-#include <string>
 
+#include <string>
+#include <regex>
 
 class Task {
-    int _id;
+        //static int _last_used_id;
+        
+        
+        int _id;
 	std::string _name;
 	int _value;
 	bool _completed;
 
 	public:
 		Task(std::string);
-
+                
+                void CountStrSequences();
 		void Complete();
 
 		bool IsCompleted() const { return _completed; }
-		string Name() const { return _name; }
+		std::string Name() const { return _name; }
 		int Id() const { return _id; }
 };
 
+//use anonymous namespace like you'd use a static member in java
+namespace
+{
+    int _lastUsedId = 0;
+}
+
 Task::Task(std::string name) {
-	_id = 0;
+        
+	_id = _lastUsedId ++; //give a unique id number
+	_value = -1;
 	_name = name;
 	_completed = false;
 }
 
+/* Looks for the sequence of characters 'CCN' case in-sensitive*/
+void Task::CountStrSequences(){
+    
+    int count = 0;
+    std::regex reg("[cC]{2}[nN]{1}", std::regex_constants::extended);
+    auto iterator = std::sregex_iterator (_name.begin(), _name.end(), reg);
+    auto endOfSequence = std::sregex_iterator();
+    
+    while(iterator!=endOfSequence){
+        count ++;
+        iterator ++;
+    }
+    _value = count;
+    std::cout << "Task value is: " << _value << "  Task ID is: " << _id << std::endl;
+}
+
 void Task::Complete() {
 	_completed = true;
+        CountStrSequences();
 }
+
+
+
+
 
 #endif
 
